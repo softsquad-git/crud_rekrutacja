@@ -1,0 +1,24 @@
+{{ form_start(search) }}
+    <div class="row mt-4">
+        <div class="col-md-4">
+            {{ form_row(search.title) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(search.isbn) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(search.author_id) }}
+        </div>
+        <div class="col-md-2" style="margin-top: 32px">
+            {{ form_row(search.search) }}
+        </div>
+    </div>
+{{ form_end(search) }}
+<div class="results-on-page">
+    {% set resultsOnPage = [5, 10, 20, 50, 100] %}
+    {% set currentResult = app.request.get('pagination') %}
+    Wyświetl:
+    {% for result in resultsOnPage %}
+        <a {% if currentResult == result %} class="active" {% endif %} href="{{ path('book.index') }}?pagination={{ result }}">{{ result }}</a>
+    {% endfor %}
+</div>

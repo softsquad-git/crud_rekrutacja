@@ -1,0 +1,36 @@
+book.index:
+  path: /
+  controller: App\Controller\BookController::index
+
+book.create:
+  path: /books/create
+  controller: App\Controller\BookController::create
+  methods: [GET, POST]
+
+book.edit:
+  path: /books/edit/{id}
+  controller: App\Controller\BookController::edit
+  methods: [GET, POST]
+
+book.remove:
+  path: /books/remove/{id}
+  controller: App\Controller\BookController::remove
+
+author.index:
+  path: /authors
+  controller: App\Controller\AuthorController::index
+  methods: [GET]
+
+author.create:
+  path: /authors/create
+  controller: App\Controller\AuthorController::create
+  methods: [GET, POST]
+
+author.edit:
+  path: /authors/edit/{id}
+  controller: App\Controller\AuthorController::edit
+  methods: [GET, POST]
+
+author.remove:
+  path: /authors/remove/{id}
+  controller: App\Controller\AuthorController::remove

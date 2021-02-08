@@ -1,0 +1,20 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% if app.request.get('id') %}
+    {% set title = 'Edytuj książkę' %}
+{% else %}
+    {% set title = 'Dodaj książkę' %}
+{% endif %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    {% include 'parts/header.html.twig' with {
+        'title': title,
+        'cancelUrl': path('book.index')
+    } %}
+
+    {{ form(form) }}
+{% endblock %}

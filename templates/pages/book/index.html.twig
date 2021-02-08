@@ -1,0 +1,60 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}
+    Książki
+{% endblock %}
+
+{% block body %}
+    {% include 'parts/header.html.twig' with {
+        'title': 'Książki',
+        'createUrl': path('book.create')
+    } %}
+
+    {% include 'pages/book/search.html.twig' with {
+        'search': search,
+        'path': path('book.index')
+    } %}
+
+
+    {% if data | length > 0 %}
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">
+                    {{ knp_pagination_sortable(data, 'L.p', 't.id') }}
+                </th>
+                <th scope="col">Tytuł</th>
+                <th scope="col">Okładka</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Rok wydania</th>
+                <th scope="col">ISBN</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, item in data %}
+                <tr>
+                    <th scope="row">{{ key + 1 }}</th>
+                    <td>{{ item.getTitle() }}</td>
+                    <td><img width="100" src="{{ item.getImagePath() }}" alt="{{ item.getTitle() }}"/> </td>
+                    <td>{{ item.getAuthorId().getFullName() }}</td>
+                    <td>{{ item.getPublicationYear() }}</td>
+                    <td>{{ item.getIsbn() }}</td>
+                    <td>
+                        {% include 'parts/actions.html.twig' with {
+                            'edit': path('book.edit', {id: item.getId()}),
+                            'remove': path('book.remove', {id: item.getId()})
+                        } %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% include 'parts/pagination.html.twig' with {'data': data} %}
+
+    {% else %}
+        {% include 'parts/no_data.html.twig' %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% if app.request.get('id') %}
+    {% set title = 'Edytuj autora' %}
+{% else %}
+    {% set title = 'Dodaj autora' %}
+{% endif %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    {% include 'parts/header.html.twig' with {
+        'title': title,
+        'cancelUrl': path('author.index')
+    } %}
+
+    {{ form(form) }}
+{% endblock %}
